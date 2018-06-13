@@ -1,5 +1,7 @@
 package oop.ex6.main;
 
+import oop.ex6.blocks.Block;
+import oop.ex6.blocks.GlobalBlock;
 import oop.ex6.file_reader.FileReader;
 import oop.ex6.file_reader.IllegalFileTypeException;
 import oop.ex6.parser.Parser;
@@ -20,7 +22,8 @@ public class Manager {
     public void checkFile(String path) {
         try {
             ArrayList<String> lines = FileReader.readFile(path);
-            Parser.parseFile(lines);
+            Block globalBlock = new GlobalBlock(null, lines);
+            Parser.parseBlock(globalBlock);
             System.out.println("0");
         } catch (FileNotFoundException e) {
             System.err.println("Warning: IO Problem");

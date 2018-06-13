@@ -46,4 +46,15 @@ public abstract class Variable {
     public void setInitialized(boolean initialized) {
         isInitialized = initialized;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Variable)) {
+             return false;
+        }
+        Variable variable = (Variable) o;
+        boolean nameEqual = name.equals(variable.name);
+        boolean typeEqual = type.equals(variable.type);
+        return nameEqual && typeEqual;
+    }
 }

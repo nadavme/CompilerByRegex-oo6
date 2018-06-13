@@ -29,4 +29,20 @@ public class Method {
     public void setParameters(ArrayList<Variable> parameters) {
         this.parameters = parameters;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Method)) {
+            return false;
+        }
+        Method method = (Method) o;
+        boolean nameEqual = name.equals(method.name);
+        boolean parametersEqual = true;
+        for (int i = 0; i < parameters.size(); i++) {
+            if (!parameters.get(i).equals(method.parameters.get(i))) {
+                parametersEqual = false;
+            }
+        }
+        return nameEqual && parametersEqual;
+    }
 }
