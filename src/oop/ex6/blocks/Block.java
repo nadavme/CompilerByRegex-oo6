@@ -1,5 +1,6 @@
 package oop.ex6.blocks;
 
+import oop.ex6.main.SyntaxException;
 import oop.ex6.method.Method;
 import oop.ex6.parser.Parser;
 import oop.ex6.variable.Variable;
@@ -21,7 +22,7 @@ public abstract class Block {
         methods = new ArrayList<>();
     }
 
-    public void parseBlock() {
+    public void parseBlock() throws SyntaxException {
         Parser.parseBlock(this);
     }
 

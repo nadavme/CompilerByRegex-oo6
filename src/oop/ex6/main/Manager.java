@@ -25,6 +25,8 @@ public class Manager {
             Block globalBlock = new GlobalBlock(null, lines);
             Parser.parseBlock(globalBlock);
             System.out.println("0");
+        } catch (SyntaxException e) {
+            System.out.println("1");
         } catch (FileNotFoundException e) {
             System.err.println("Warning: IO Problem");
             System.out.println("2");

@@ -17,12 +17,7 @@ public class MethodFactory {
     private static final String PARAMETERS_REGEX = "";
     private static final String METHOD_REGEX = "void[ ]*";
 
-    public static Method createMethod(String line) throws MethodException {
-        Pattern methodRegex = Pattern.compile(METHOD_REGEX);
-        Matcher m = methodRegex.matcher(line);
-        if (!m.matches()) {
-            throw new MethodException();
-        }
+    public static Method createMethod(String line) {
         int i1 = line.indexOf("(");
         int i2 = line.indexOf(")");
         String parametersStr = line.substring(i1 + 1, i2);
