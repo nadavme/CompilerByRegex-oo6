@@ -41,6 +41,7 @@ public class Manager {
             System.out.println("0");
         } catch (SyntaxException e) {
             System.out.println("1");
+            e.printStackTrace();
         } catch (FileNotFoundException e) {
             System.err.println("Warning: IO Problem");
             System.out.println("2");

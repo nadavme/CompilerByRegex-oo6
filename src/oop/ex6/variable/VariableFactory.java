@@ -18,7 +18,7 @@ public class VariableFactory {
      * @return
      * @throws VariableException
      */
-    public static ArrayList<Variable> createVariables(String line) throws VariableException {
+    public static ArrayList<Variable> createVariables(String line, Block block) throws VariableException {
         Pattern variableRegex = Pattern.compile(Regex.VARIABLE_DECLARATION);
         Matcher m = variableRegex.matcher(line);
         m.matches();

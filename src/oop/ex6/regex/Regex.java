@@ -50,7 +50,7 @@ public class Regex {
     public static final String LEGAL_STRING_VALUE = "\\\".*\\\"";
     public static final String LEGAL_BOOLEAN_VALUE = "((true|false)|" + LEGAL_DOUBLE_VALUE + ")";
     public static final String LEGAL_VALUE = "(" + LEGAL_INT_VALUE + "|" + LEGAL_DOUBLE_VALUE + "|" +
-            LEGAL_CHAR_VALUE + "|" + LEGAL_STRING_VALUE + "|" + LEGAL_BOOLEAN_VALUE + ")";
+            LEGAL_CHAR_VALUE + "|" + LEGAL_STRING_VALUE + "|" + LEGAL_BOOLEAN_VALUE + "|" + LEGAL_NAME + ")";
 
     public static final HashMap<String, String> legalValue = new HashMap<>();
 
