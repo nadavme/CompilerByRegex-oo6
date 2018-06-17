@@ -7,6 +7,9 @@ import oop.ex6.variable.Variable;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public abstract class Block {
 
     protected Block parent;
@@ -15,6 +18,10 @@ public abstract class Block {
     protected ArrayList<Variable> variables;
     protected ArrayList<Method> methods;
 
+    /**
+     * @param parent
+     * @param lines
+     */
     public Block(Block parent, ArrayList<String> lines) {
         this.parent = parent;
         this.lines = lines;
@@ -22,38 +29,75 @@ public abstract class Block {
         methods = new ArrayList<>();
     }
 
+    /**
+     *
+     * @throws SyntaxException
+     */
     public void parseBlock() throws SyntaxException {
         Parser.parseBlock(this);
     }
 
+    /**
+     *
+     * @return
+     */
     public Block getParent() {
         return parent;
     }
 
+    /**
+     *
+     * @param parent
+     */
     public void setParent(Block parent) {
         this.parent = parent;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getLines() {
         return lines;
     }
 
+    /**
+     *
+     * @param lines
+     */
     public void setLines(ArrayList<String> lines) {
         this.lines = lines;
     }
 
+    /**
+     *
+     * @param variable
+     */
     public void addVariable(Variable variable) {
         variables.add(variable);
     }
 
+    /**
+     *
+     * @param method
+     * @throws BlockException
+     */
     public void addMethod(Method method) throws BlockException {
         methods.add(method);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Variable> getVariables() {
         return variables;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Method> getMethods() {
         return methods;
     }

@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 public class MethodFactory {
 
     private static final String FINAL = "final";
-
     private static final String SPACE_REGEX = "\\b";
     private static final String NAME_REGEX = "([a-zA-Z]+|(_)+)[\\w]+";
     private static final String TYPE_REGEX = "(int|double|String|char|boolean)";
@@ -17,6 +16,10 @@ public class MethodFactory {
     private static final String PARAMETERS_REGEX = "";
     private static final String METHOD_REGEX = "void[ ]*";
 
+    /**
+     * @param line
+     * @return
+     */
     public static Method createMethod(String line) {
         int i1 = line.indexOf("(");
         int i2 = line.indexOf(")");
@@ -41,8 +44,7 @@ public class MethodFactory {
             Variable variable;
             if (s[0].equals(FINAL)) {
                 variable = createVariable(true, s[1], s[2]);
-            }
-            else {
+            } else {
                 variable = createVariable(true, s[0], s[1]);
             }
             parameters.add(variable);

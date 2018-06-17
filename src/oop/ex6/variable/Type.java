@@ -1,5 +1,8 @@
 package oop.ex6.variable;
 
+/**
+ *
+ */
 public enum Type {
     BOOLEAN("boolean"),
     CHAR("char"),
@@ -9,10 +12,17 @@ public enum Type {
 
     private final String type;
 
+    /**
+     * @param type
+     */
     Type(String type) {
         this.type = type;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getType() {
         return type;
     }

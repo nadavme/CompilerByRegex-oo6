@@ -12,14 +12,21 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ */
 public class Parser {
 
+    /**
+     * @param block
+     * @throws SyntaxException
+     */
     public static void parseBlock(Block block) throws SyntaxException {
 
         ArrayList<Method> methods = new ArrayList<>();
 
         ArrayList<String> lines = block.getLines();
-        Pattern methodRegex = Pattern.compile(Regex.METHOD);
+        Pattern methodRegex = Pattern.compile(Regex.METHOD_WITH_PARAMETERS);
         for (int i = 0; i < lines.size(); i++) {
             Matcher m = methodRegex.matcher(lines.get(i));
             if (m.matches()) {

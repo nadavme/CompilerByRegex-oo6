@@ -6,10 +6,20 @@ import oop.ex6.parser.Parser;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class MethodBlock extends Block {
+
 
     private Method method;
 
+    /**
+     * @param parent
+     * @param method
+     * @param lines
+     * @throws SyntaxException
+     */
     public MethodBlock(Block parent, Method method, ArrayList<String> lines) throws SyntaxException {
         super(parent, lines);
         this.method = method;
@@ -17,11 +27,20 @@ public class MethodBlock extends Block {
         Parser.parseBlock(this);
     }
 
+    /**
+     *
+     * @param method
+     * @throws BlockException
+     */
     @Override
     public void addMethod(Method method) throws BlockException {
         throw new BlockException();
     }
 
+    /**
+     *
+     * @return
+     */
     public Method getMethod() {
         return method;
     }

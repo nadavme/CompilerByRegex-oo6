@@ -5,11 +5,20 @@ import oop.ex6.blocks.Block;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ */
 public class VariableFactory {
 
     private static final String VARIABLE_REGEX = "";
     private static final String VARIABLE_DECLARATION_REGEX = "";
 
+    /**
+     * @param line
+     * @param parent
+     * @return
+     * @throws VariableException
+     */
     public static Variable createVariable(String line, Block parent) throws VariableException {
 
         Pattern variableRegex = Pattern.compile(VARIABLE_REGEX);

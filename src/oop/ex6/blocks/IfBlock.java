@@ -4,8 +4,15 @@ import oop.ex6.method.Method;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class IfBlock extends Block {
 
+    /**
+     * @param parent
+     * @param lines
+     */
     public IfBlock(Block parent, ArrayList<String> lines) {
         super(parent, lines);
     }

@@ -5,8 +5,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class FileReader {
 
+    /**
+     * @param path
+     * @return
+     * @throws FileNotFoundException
+     * @throws IllegalFileTypeException
+     */
     public static ArrayList<String> readFile(String path) throws FileNotFoundException, IllegalFileTypeException {
         if (!path.endsWith(".sjava")) {
             throw new IllegalFileTypeException();

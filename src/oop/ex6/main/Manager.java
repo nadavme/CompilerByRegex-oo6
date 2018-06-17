@@ -9,9 +9,15 @@ import oop.ex6.parser.Parser;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Manager {
     private static Manager manager = new Manager();
 
+    /**
+     * @return
+     */
     public static Manager getInstance() {
         return manager;
     }
@@ -19,6 +25,10 @@ public class Manager {
     private Manager() {
     }
 
+    /**
+     *
+     * @param path
+     */
     public void checkFile(String path) {
         try {
             ArrayList<String> lines = FileReader.readFile(path);
