@@ -16,7 +16,6 @@ public abstract class Block {
     protected ArrayList<String> lines;
 
     protected ArrayList<Variable> variables;
-    protected ArrayList<Method> methods;
 
     /**
      * @param parent
@@ -26,15 +25,9 @@ public abstract class Block {
         this.parent = parent;
         this.lines = lines;
         variables = new ArrayList<>();
-        methods = new ArrayList<>();
-    }
-
-    /**
-     *
-     * @throws SyntaxException
-     */
-    public void parseBlock() throws SyntaxException {
-        Parser.parseBlock(this);
+        if (parent != null) {
+            variables.addAll(parent.variables);
+        }
     }
 
     /**
@@ -77,13 +70,8 @@ public abstract class Block {
         variables.add(variable);
     }
 
-    /**
-     *
-     * @param method
-     * @throws BlockException
-     */
-    public void addMethod(Method method) throws BlockException {
-        methods.add(method);
+    public void addVariables(ArrayList<Variable> variables) {
+        this.variables.addAll(variables);
     }
 
     /**
@@ -92,13 +80,5 @@ public abstract class Block {
      */
     public ArrayList<Variable> getVariables() {
         return variables;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ArrayList<Method> getMethods() {
-        return methods;
     }
 }

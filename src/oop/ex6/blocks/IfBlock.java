@@ -13,12 +13,10 @@ public class IfBlock extends Block {
      * @param parent
      * @param lines
      */
-    public IfBlock(Block parent, ArrayList<String> lines) {
+    public IfBlock(Block parent, ArrayList<String> lines) throws BlockException {
         super(parent, lines);
-    }
-
-    @Override
-    public void addMethod(Method method) throws BlockException {
-        throw new BlockException();
+        if (parent instanceof GlobalBlock) {
+            throw new BlockException();
+        }
     }
 }

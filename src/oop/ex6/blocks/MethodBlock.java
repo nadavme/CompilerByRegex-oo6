@@ -24,17 +24,6 @@ public class MethodBlock extends Block {
         super(parent, lines);
         this.method = method;
         variables.addAll(method.getParameters());
-        Parser.parseBlock(this);
-    }
-
-    /**
-     *
-     * @param method
-     * @throws BlockException
-     */
-    @Override
-    public void addMethod(Method method) throws BlockException {
-        throw new BlockException();
     }
 
     /**

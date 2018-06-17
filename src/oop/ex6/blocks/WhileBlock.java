@@ -6,12 +6,10 @@ import java.util.ArrayList;
 
 public class WhileBlock extends Block {
 
-    public WhileBlock(Block parent, ArrayList<String> lines) {
+    public WhileBlock(Block parent, ArrayList<String> lines) throws BlockException {
         super(parent, lines);
-    }
-
-    @Override
-    public void addMethod(Method method) throws BlockException {
-        throw new BlockException();
+        if (parent instanceof GlobalBlock) {
+            throw new BlockException();
+        }
     }
 }

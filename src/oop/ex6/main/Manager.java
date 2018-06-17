@@ -2,6 +2,7 @@ package oop.ex6.main;
 
 import oop.ex6.blocks.Block;
 import oop.ex6.blocks.GlobalBlock;
+import oop.ex6.blocks.MethodBlock;
 import oop.ex6.file_reader.FileReader;
 import oop.ex6.file_reader.IllegalFileTypeException;
 import oop.ex6.parser.Parser;
@@ -32,8 +33,11 @@ public class Manager {
     public void checkFile(String path) {
         try {
             ArrayList<String> lines = FileReader.readFile(path);
-            Block globalBlock = new GlobalBlock(null, lines);
-            Parser.parseBlock(globalBlock);
+            GlobalBlock globalBlock = new GlobalBlock(null, lines);
+            Parser.parseGlobalBlock(globalBlock);
+            for (MethodBlock block : globalBlock.getMethods()) {
+                Parser.parseBlock(block, globalBlock);
+            }
             System.out.println("0");
         } catch (SyntaxException e) {
             System.out.println("1");

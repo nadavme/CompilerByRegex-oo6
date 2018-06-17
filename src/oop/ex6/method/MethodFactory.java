@@ -1,71 +1,62 @@
 package oop.ex6.method;
 
+import oop.ex6.blocks.GlobalBlock;
+import oop.ex6.blocks.MethodBlock;
+import oop.ex6.regex.Regex;
 import oop.ex6.variable.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MethodFactory {
 
-    private static final String FINAL = "final";
-    private static final String SPACE_REGEX = "\\b";
-    private static final String NAME_REGEX = "([a-zA-Z]+|(_)+)[\\w]+";
-    private static final String TYPE_REGEX = "(int|double|String|char|boolean)";
-    private static final String SIGNATURE_REGEX = SPACE_REGEX + "*void" + SPACE_REGEX + "+" + NAME_REGEX + SPACE_REGEX + "*";
-    private static final String PARAMETERS_REGEX = "";
-    private static final String METHOD_REGEX = "void[ ]*";
-
     /**
      * @param line
      * @return
      */
-    public static Method createMethod(String line) {
-        int i1 = line.indexOf("(");
-        int i2 = line.indexOf(")");
-        String parametersStr = line.substring(i1 + 1, i2);
-        String[] words = line.split(" ");
-        String methodName = words[1];
-        String inputParameters[] = parametersStr.split(",");
-        String[][] parametersSeparated = new String[inputParameters.length][3];
-        for (int i = 0; i < inputParameters.length; i++) {
-            String[] parameter = inputParameters[i].split(" ");
-            int separatedIndex = 0;
-            for (String aParameter : parameter) {
-                aParameter.replaceAll(" ", "");
-                if (!aParameter.equals("")) {
-                    parametersSeparated[i][separatedIndex] = aParameter;
-                    separatedIndex++;
-                }
+    public static Method createMethod(String line, GlobalBlock globalBlock) throws MethodException {
+
+        ArrayList<Variable> parameters = new ArrayList<>();
+
+        Pattern methodPattern = Pattern.compile(Regex.METHOD);
+        Matcher m = methodPattern.matcher(line);
+        m.matches();
+        String methodName = m.group(1);
+
+        for (MethodBlock methodBlock : globalBlock.getMethods()) {
+            Method method = methodBlock.getMethod();
+            if (method.getName().equals(methodName)) {
+                throw new MethodException();
             }
         }
-        ArrayList<Variable> parameters = new ArrayList<>();
-        for (String[] s : parametersSeparated) {
-            Variable variable;
-            if (s[0].equals(FINAL)) {
-                variable = createVariable(true, s[1], s[2]);
-            } else {
-                variable = createVariable(true, s[0], s[1]);
+        String methodParameters = m.group(2);
+        if (methodParameters != null) {
+            String[] parametersA = methodParameters.split(",");
+
+            for (String parameter : parametersA) {
+                ArrayList<String> s = new ArrayList<>(Arrays.asList(parameter.split(Regex.AT_LEAST_ONE_SPACE)));
+                if (s.get(0).equals("")) {
+                    s.remove(0);
+                }
+                boolean isFinal = false;
+                String type;
+                String parameterName;
+                if (s.get(0).equals("final")) {
+                    isFinal = true;
+                    type = s.get(1);
+                    parameterName = s.get(2);
+                } else {
+                    type = s.get(0);
+                    parameterName = s.get(1);
+                }
+
+                Variable variable = new Variable(parameterName, type, isFinal, true);
+                parameters.add(variable);
             }
-            parameters.add(variable);
         }
         return new Method(methodName, parameters);
-    }
-
-    private static Variable createVariable(boolean isFinal, String type, String name) {
-        switch (type) {
-            case IntVariable.intType:
-                return new IntVariable(name, isFinal, true);
-            case CharVariable.charType:
-                return new CharVariable(name, isFinal, true);
-            case BooleanVariable.booleanType:
-                return new BooleanVariable(name, isFinal, true);
-            case DoubleVariable.doubleType:
-                return new DoubleVariable(name, isFinal, true);
-            case StringVariable.stringType:
-                return new StringVariable(name, isFinal, true);
-        }
-        // unreachable statement
-        return null;
     }
 }

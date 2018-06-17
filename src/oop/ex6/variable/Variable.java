@@ -3,7 +3,13 @@ package oop.ex6.variable;
 /**
  *
  */
-public abstract class Variable {
+public class Variable {
+
+    public static final String INT_TYPE = "int";
+    public static final String DOUBLE_TYPE = "double";
+    public static final String STRING_TYPE = "String";
+    public static final String CHAR_TYPE = "char";
+    public static final String BOOLEAN_TYPE = "boolean";
 
     protected String name;
     protected String type;
