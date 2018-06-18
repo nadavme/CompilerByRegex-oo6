@@ -4,59 +4,41 @@ import oop.ex6.variable.Variable;
 import java.util.ArrayList;
 
 /**
- *
+ * represent a method in s-java.
  */
 public class Method {
 
+	/* the name of the method. */
     private String name;
+	/* the parameters of the method. */
     private ArrayList<Variable> parameters;
 
-    /**
-     * @param name
-     * @param parameters
-     */
-    public Method(String name, ArrayList<Variable> parameters) {
+	/**
+	 * Constructor.
+	 * @param name the name of the method.
+	 * @param parameters the parameters of the method.
+	 */
+	public Method(String name, ArrayList<Variable> parameters) {
         this.name = name;
         this.parameters = parameters;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getName() {
+	/**
+	 * return the name of the method.
+	 * @return the name of the method.
+	 */
+	public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     *
-     * @return
+     * return the list of the parameters.
+     * @return the list of the parameters.
      */
     public ArrayList<Variable> getParameters() {
         return parameters;
     }
 
-    /**
-     *
-     * @param parameters
-     */
-    public void setParameters(ArrayList<Variable> parameters) {
-        this.parameters = parameters;
-    }
-
-    /**
-     *
-     * @param o
-     * @return
-     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Method)) {

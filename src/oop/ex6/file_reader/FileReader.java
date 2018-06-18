@@ -6,17 +6,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * the file reader
  */
 public class FileReader {
 
-    /**
-     * @param path
-     * @return
-     * @throws FileNotFoundException
-     * @throws IllegalFileTypeException
-     */
-    public static ArrayList<String> readFile(String path) throws FileNotFoundException, IllegalFileTypeException {
+	/**
+	 * read the file.
+	 * @param path the file path.
+	 * @return the lines of the file.
+	 * @throws FileNotFoundException IO error.
+	 * @throws IllegalFileTypeException if the file is not sjava file.
+	 */
+	public static ArrayList<String> readFile(String path) throws FileNotFoundException, IllegalFileTypeException {
         if (!path.endsWith(".sjava")) {
             throw new IllegalFileTypeException();
         }

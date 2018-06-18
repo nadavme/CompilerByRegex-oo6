@@ -1,104 +1,94 @@
 package oop.ex6.variable;
 
 /**
- *
+ * represents a variable.
  */
 public class Variable {
 
+	/** the int type */
     public static final String INT_TYPE = "int";
+	/** the double type */
     public static final String DOUBLE_TYPE = "double";
+	/** the String type */
     public static final String STRING_TYPE = "String";
+	/** the char type */
     public static final String CHAR_TYPE = "char";
+	/** the boolean type */
     public static final String BOOLEAN_TYPE = "boolean";
 
-    protected String name;
-    protected String type;
+    /* the variable name */
+    private String name;
+    /* the variable type */
+	private String type;
+	/* is final */
+	private boolean isFinal;
+	/* is global initialized */
+	private boolean isGlobalInitialized;
+	/* is initialized */
+	private boolean isInitialized;
 
-    protected boolean isFinal;
-    protected boolean isInitialized;
-
-    /**
-     * @param name
-     * @param type
-     * @param isFinal
-     * @param isInitialized
-     */
-    public Variable(String name, String type, boolean isFinal, boolean isInitialized) {
+	/**
+	 * Constructor.
+	 * @param name the variable name.
+	 * @param type the variable type.
+	 * @param isFinal is the variable final.
+	 * @param isGlobalInitialized is global initialized
+	 */
+    public Variable(String name, String type, boolean isFinal, boolean isGlobalInitialized) {
         this.name = name;
         this.type = type;
         this.isFinal = isFinal;
-        this.isInitialized = isInitialized;
+        this.isGlobalInitialized = isGlobalInitialized;
+	    this.isInitialized = isGlobalInitialized;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * return the variable name.
+	 * @return the variable name.
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * return the variable type.
+	 * @return the variable type.
+	 */
+	public String getType() {
+		return type;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getType() {
-        return type;
-    }
+	/**
+	 * return true if the variable is final.
+	 * @return true if the variable is final, false otherwise.
+	 */
+	public boolean isFinal() {
+		return isFinal;
+	}
 
-    /**
-     *
-     * @param type
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+	/**
+	 * return true if the variable is initialized.
+	 * @return true if the variable is initialized, false otherwise.
+	 */
+	public boolean isInitialized() {
+		return isInitialized;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public boolean isFinal() {
-        return isFinal;
-    }
+	/**
+	 * initialized setter.
+	 * @param initialized the update value.
+	 */
+	public void setInitialized(boolean initialized) {
+		isInitialized = initialized;
+	}
 
-    /**
-     *
-     * @param aFinal
-     */
-    public void setFinal(boolean aFinal) {
-        isFinal = aFinal;
-    }
+	/**
+	 * reset the local initialization.
+	 */
+	public void resetScopeInit() {
+    	isInitialized = isGlobalInitialized;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public boolean isInitialized() {
-        return isInitialized;
-    }
-
-    /**
-     *
-     * @param initialized
-     */
-    public void setInitialized(boolean initialized) {
-        isInitialized = initialized;
-    }
-
-    /**
-     *
-     * @param o
-     * @return
-     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Variable)) {

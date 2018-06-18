@@ -3,71 +3,141 @@ package oop.ex6.variable;
 import oop.ex6.blocks.Block;
 import oop.ex6.regex.Regex;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * the variable factory
  */
 public class VariableFactory {
 
-    /**
-     * @param line
-     * @return
-     * @throws VariableException
-     */
-    public static ArrayList<Variable> createVariables(String line, Block block) throws VariableException {
-        Pattern variableRegex = Pattern.compile(Regex.VARIABLE_DECLARATION);
-        Matcher m = variableRegex.matcher(line);
-        m.matches();
-        boolean isFinal = false;
-        if (m.group(2) != null) {
-            isFinal = true;
-        }
-        String type = m.group(3);
-        String[] variablesNamesAndValues = m.group(4).split(",");
+	/**
+	 * create variable from the given parameters.
+	 * @param declaration the declaration line.
+	 * @param block the parent block.
+	 * @throws VariableException if the syntax is wrong.
+	 */
+    public static void createVariables(String declaration, Block block) throws VariableException {
 
-        ArrayList<Variable> variables = new ArrayList<>();
+    	Pattern p = Pattern.compile(Regex.VARIABLE_DECLARATION);
+    	Matcher m = p.matcher(declaration);
+    	m.matches();
+    	boolean isFinal = m.group(1) != null;
+    	String type = m.group(3);
 
-        for (String name : variablesNamesAndValues) {
-            ArrayList<String> s = new ArrayList<>(Arrays.asList(name.split(Regex.AT_LEAST_ONE_SPACE)));
-            if (s.get(0).equals("")) {
-                s.remove(0);
-            }
-            String variableName = s.get(0);
-            boolean isInit = false;
-            if (s.size() > 1) {
-                String value = s.get(2);
-                if (!isValueMatchType(value, type)) {
-                    throw new VariableException();
-                }
-                isInit = true;
-            }
-            if (isFinal && !isInit) {
-                throw new VariableException();
-            }
+    	String[] vars = m.group(4).split(",");
 
-            Variable variable = new Variable(variableName, type, isFinal, isInit);
-            variables.add(variable);
-        }
-        return variables;
+    	for(String var: vars) {
+		    Pattern varPattern = Pattern.compile(Regex.VARIABLE_OPTIONAL_ASSIGNMENT);
+		    Matcher varMatcher = varPattern.matcher(var);
+		    varMatcher.matches();
+    		String name = varMatcher.group(1);
+    		String value = varMatcher.group(4);
+    		boolean isInit = value != null;
+
+		    Variable variable = new Variable(name, type, isFinal, isInit);
+
+    		if (block.getVariableCurrentBlock(variable.getName()) != null) {
+			    throw new VariableException();
+		    }
+
+		    if (isFinal && !isInit) {
+			    throw new VariableException();
+		    }
+
+		    if (value != null) {
+
+			    if (Pattern.compile(Regex.legalValue.get(type)).matcher(value).matches()) {
+				    block.addVariable(variable);
+				    continue;
+			    }
+
+			    Variable val = block.getVariableWithParentBlocks(value);
+			    if (val == null) {
+				    throw new VariableException();
+			    }
+			    if (!typesMatch(type, val.getType())) {
+				    throw new VariableException();
+			    }
+			    if (!val.isInitialized()) {
+				    throw new VariableException();
+			    }
+		    }
+
+		    block.addVariable(variable);
+	    }
     }
 
-    private static boolean isValueMatchType(String value, String type) {
-        switch (type) {
-            case Variable.INT_TYPE:
-                return Pattern.compile(Regex.LEGAL_INT_VALUE).matcher(value).matches();
-            case Variable.DOUBLE_TYPE:
-                return Pattern.compile(Regex.LEGAL_DOUBLE_VALUE).matcher(value).matches();
-            case Variable.STRING_TYPE:
-                return Pattern.compile(Regex.LEGAL_STRING_VALUE).matcher(value).matches();
-            case Variable.CHAR_TYPE:
-                return Pattern.compile(Regex.LEGAL_CHAR_VALUE).matcher(value).matches();
-            case Variable.BOOLEAN_TYPE:
-                return Pattern.compile(Regex.LEGAL_BOOLEAN_VALUE).matcher(value).matches();
-        }
-        return false;
-    }
+	/**
+	 * check variable assignment.
+	 * @param assignment the assignment line.
+	 * @param block the parent block.
+	 * @throws VariableException if the syntax is wrong.
+	 */
+	public static void checkAssignment(String assignment, Block block) throws VariableException {
+
+		Pattern p = Pattern.compile(Regex.VARIABLE_ASSIGNMENT);
+		Matcher m = p.matcher(assignment);
+		m.matches();
+
+		String name = m.group(1);
+		String value = m.group(3);
+
+		Variable variable = block.getVariableWithParentBlocks(name);
+		if (variable == null) {
+			throw new VariableException();
+		}
+
+		if (variable.isFinal()) {
+			throw new VariableException();
+		}
+
+		if (!isTypeMatchToValue(variable.getType(), value)) {
+			throw new VariableException();
+		}
+
+		variable.setInitialized(true);
+	}
+
+	/*
+	 * return true if the type matches the value.
+	 */
+	private static boolean isTypeMatchToValue(String type, String value) {
+    	switch (type) {
+		    case Variable.INT_TYPE:
+		    	return Pattern.compile(Regex.legalValue.get(Variable.INT_TYPE)).matcher(value).matches();
+		    case Variable.DOUBLE_TYPE:
+			    return Pattern.compile(Regex.legalValue.get(Variable.INT_TYPE)).matcher(value).matches() ||
+					    Pattern.compile(Regex.legalValue.get(Variable.DOUBLE_TYPE)).matcher(value).matches();
+		    case Variable.STRING_TYPE:
+			    return Pattern.compile(Regex.legalValue.get(Variable.STRING_TYPE)).matcher(value).matches();
+		    case Variable.CHAR_TYPE:
+			    return Pattern.compile(Regex.legalValue.get(Variable.CHAR_TYPE)).matcher(value).matches();
+		    case Variable.BOOLEAN_TYPE:
+			    return Pattern.compile(Regex.legalValue.get(Variable.INT_TYPE)).matcher(value).matches() ||
+					    Pattern.compile(Regex.legalValue.get(Variable.DOUBLE_TYPE)).matcher(value).matches() ||
+					    Pattern.compile(Regex.legalValue.get(Variable.BOOLEAN_TYPE)).matcher(value).matches();
+	    }
+	    return false;
+	}
+
+	/*
+	 * return true if the two types match.
+	 */
+	private static boolean typesMatch(String typeRecieve, String typeGive) {
+		switch (typeRecieve) {
+			case Variable.INT_TYPE:
+				return typeGive.equals(Variable.INT_TYPE);
+			case Variable.DOUBLE_TYPE:
+				return typeGive.equals(Variable.INT_TYPE) || typeGive.equals(Variable.DOUBLE_TYPE);
+			case Variable.STRING_TYPE:
+				return  typeGive.equals(Variable.STRING_TYPE);
+			case Variable.CHAR_TYPE:
+				return typeGive.equals(Variable.CHAR_TYPE);
+			case Variable.BOOLEAN_TYPE:
+				return typeGive.equals(Variable.INT_TYPE) || typeGive.equals(Variable.DOUBLE_TYPE) ||
+						typeGive.equals(Variable.BOOLEAN_TYPE);
+		}
+		return false;
+	}
 }
