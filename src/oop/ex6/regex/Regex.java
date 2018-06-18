@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Regex {
 
-    /**************************************Genera ************************************************/
+    /**************************************General ************************************************/
 
     /** optional space */
     public static final String OPTIONAL_SPACE = "\\s*";
@@ -49,7 +49,7 @@ public class Regex {
     /** close scope line */
     public static final String CLOSE_SCOPE_LINE = OPTIONAL_SPACE + CLOSE_SCOPE + OPTIONAL_SPACE;
 
-    /**************************************Types ************************************************/
+    /************************************** Types ************************************************/
 
     public static final String INT = "(int)";
     public static final String DOUBLE = "(double)";
@@ -59,7 +59,7 @@ public class Regex {
 
     public static final String VARIABLE_TYPE = "(int|double|boolean|String|char)";
 
-    /**************************************Legal Values ******************************************/
+    /************************************** Legal Values ******************************************/
 
     /** int legal value */
     public static final String LEGAL_INT_VALUE = "-?\\d+";
@@ -87,7 +87,7 @@ public class Regex {
     }
 
 
-    /***********************************Variable Declaration *****************************************/
+    /*********************************** Variable Declaration *****************************************/
 
     /** variable declaration */
     public static final String VARIABLE_DECLARATION =
@@ -108,7 +108,7 @@ public class Regex {
             OPTIONAL_SPACE + "(" + EQUALS + OPTIONAL_SPACE + "(" + LEGAL_VALUE + "))?" + OPTIONAL_SPACE;
 
 
-    /**************************************If / While ************************************************/
+    /************************************** If / While ************************************************/
 
     /** if or while */
     public static final String IF_WHILE = OPTIONAL_SPACE + "(if|while)" + OPTIONAL_SPACE + OPEN_BRACKET +
@@ -116,7 +116,7 @@ public class Regex {
             "((&&|\\|\\|)" + OPTIONAL_SPACE + "(" + LEGAL_BOOLEAN_VALUE + "|" + LEGAL_VARIABLE_NAME + ")" +
             OPTIONAL_SPACE + ")*)" + CLOSE_BRACKET + OPTIONAL_SPACE + OPEN_SCOPE + OPTIONAL_SPACE;
 
-    /**************************************Method ************************************************/
+    /************************************* Method ************************************************/
 
     /** method parameter */
     public static final String PARAMETER = OPTIONAL_SPACE + OPTIONAL_FINAL + OPTIONAL_SPACE + VARIABLE_TYPE +
