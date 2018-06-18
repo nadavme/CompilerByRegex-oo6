@@ -1,0 +1,67 @@
+nadav.meidan
+ori.matityahu
+
+
+===================================
+= File Description =
+===================================
+We have several packages - blocks, file reader, main, method, parser, regex and variable.
+it holds all the relevant classes to run the "s-java compiler".
+We chose to order them under packages by their role in the program so it easy to understand the program's structure.
+There is a README as well.
+
+=============================
+=          Design           =
+=============================
+
+the design is following the instructions pattern we got.
+
+==========================================================
+=   Implementation details   =
+==========================================================
+
+
+
+
+
+
+==========================================================
+=   Answers to questions   =
+==========================================================
+
+
+***************************  How we handled s-java code errors in this exercise ********************************
+
+------------------------------------------------Answer--------------------------------------------------------
+
+
+
+
+
+
+****************** How we modified our code to add new types of variables (e.g., float)? ********************
+
+------------------------------------------------Answer--------------------------------------------------------
+
+
+
+
+
+
+
+*****************************  Which changes are required to support classes?  ********************************
+
+------------------------------------------------Answer--------------------------------------------------------
+
+
+
+
+
+
+
+
+***************************** Which changes are required to support classes? **********************************
+
+
+
+------------------------------------------------Answer--------------------------------------------------------
