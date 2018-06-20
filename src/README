@@ -14,11 +14,31 @@ There is a README as well.
 =          Design           =
 =============================
 
-the design is following the instructions pattern we got.
+We chose to "analyze" the s-java files by going over the code to times. The first time, is for "mapping" the code-
+separates "Blocks" to global, methods and conditionals: each of them holds the parameters declared in its scope, the
+methods, and booleans that indicates its status(isInitialized?, isTrue?) and to checks some part of the code.The second,
+is for verify the code carefully, and throw exceptions if the code is illegal.
+A crucial part of those two over-code procedures is done by the regex mechanism. We used it to bound scopes, we used it
+to validate the legality of the scope. We chose to define a regex class that holds al the expressions, and divides the
+expressions to short one, so its more readable and make sense of what match we look for in the code.
+So, after "parsing" the scope, we "create" them by factories(there is one for each type) and checks their correctness.
+therefore, there can be many of errors types, so each sub-package like "method" or "variable" holds its own exception
+handler.
+The class whom run this program and catches the exceptions, is manager. its in charge of taking the code file through
+the stations, in the correct order, and identify errors.
+
 
 ==========================================================
 =   Implementation details   =
 ==========================================================
+
+As said in the Design part, we split the program to some packages, by their "mission" of handling the code. we chose to
+read the file with a scanner, that we are familiar with from previous exercises- these is the place where IO exceptions
+can be thrown, and handle the code line by line.
+So the Parser gets the lines of the code, and cut it to scopes- this may be the most important part of our program,
+because it is done carefully and many of the checks on the code are done their. Each of the relevant scopes gets its
+relevant lines, and "creates" it- meaning run the checks on it, part by part- the headline, the signature, the
+parameters, the brackets, the "return" etc.
 
 
 
