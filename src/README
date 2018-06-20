@@ -37,12 +37,8 @@ read the file with a scanner, that we are familiar with from previous exercises-
 can be thrown, and handle the code line by line.
 So the Parser gets the lines of the code, and cut it to scopes- this may be the most important part of our program,
 because it is done carefully and many of the checks on the code are done their. Each of the relevant scopes gets its
-relevant lines, and "creates" it- meaning run the checks on it, part by part- the headline, the signature, the
+relevant lines, and "creates" it- meaning run the checks on it, part by part: the headline, the signature, the
 parameters, the brackets, the "return" etc.
-
-
-
-
 
 
 ==========================================================
@@ -53,35 +49,44 @@ parameters, the brackets, the "return" etc.
 ***************************  How we handled s-java code errors in this exercise ********************************
 
 ------------------------------------------------Answer--------------------------------------------------------
+There are two types of errors: the first type is an IO errors ,which indicates problem of getting to the file(find it,
+open it, read from it etc.) for that type the output will be "2". the second type is an illegal s-java code inside the
+file, for all the reasons are explained in the PDF and the output in that case will be "1"/
+
+Both of the exceptions types are thrown independently by the different classes (in packages) of the program, by they all\
+are being caught in the "manager"  that runs the program. the reason is that, whatever the exception type is, and the
+matching informative message that being printed- the program should return, and stop checking the file. So it easy to
+"catch" all sort of exception, in one place, and handle it the only way we chose.
 
 
 
-
-
-
-****************** How we modified our code to add new types of variables (e.g., float)? ********************
+****************** How we would modify our code to add new types of variables (e.g., float)? ******************
 
 ------------------------------------------------Answer--------------------------------------------------------
 
+We need to do some simple adjustments:
 
-
-
-
+1. Add the "float" type as field in Variable.
+2. Create a matching regex pattern to the FLOAT_TYPE type of variable, and add its "case" to the variable factory.
 
 
 *****************************  Which changes are required to support classes?  ********************************
 
 ------------------------------------------------Answer--------------------------------------------------------
 
+There is no need for changes, only some additions.
+Add a "getClassBlock" method to the Parser-  similar to the getMethod method, and create the matching regex pattern, for
+detecting each part of the class(signature, fields, constructor, methods etc).
+create a factory that will get the lines of the class and handle it(search for the opening and closing brackets, detect
+constructor,  collect super and sub classes and its methods and fields.. the same structure as we did with Method.
+not so hard.
 
 
 
-
-
-
-
-***************************** Which changes are required to support classes? **********************************
-
+************************** Which changes are required to support different method types? *********************
 
 
 ------------------------------------------------Answer--------------------------------------------------------
+
+I think it will require to change the regex pattern fo method signature, and the 'return' regex pattern.
+in addition, we will need to add an attribute of the return type to the method objects list that each "block" holds.
