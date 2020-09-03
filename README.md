@@ -6,7 +6,7 @@ it holds all the relevant classes to run the "s-java compiler".
 I have chosen to order them under packages by their role in the program so it easy to understand the program's structure.
 There is a README as well.
 
-=          Design           =
+##          Design          ##
 
 I chose to "analyze" the s-java files by going over the code two times. The first time, is for "mapping" the code-
 separates "Blocks" to global, methods and conditionals: each of them holds the parameters declared in its scope, the
