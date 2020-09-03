@@ -1,6 +1,6 @@
 # CompilerByRegex-oo6
 
-= File Description =
+## File Description ##
 We have several packages - blocks, file reader, main, method, parser, regex and variable.
 it holds all the relevant classes to run the "s-java compiler".
 I have chosen to order them under packages by their role in the program so it easy to understand the program's structure.
@@ -22,7 +22,7 @@ The class whom run this program and catches the exceptions, is manager. its in c
 the stations, in the correct order, and identify errors.
 
 
-=   Implementation details   =
+##   Implementation details   ##
 
 As said in the Design part, i have splitted the program to some packages, by their "mission" of handling the code. I chose to
 read the file with a scanner, that i'am are familiar with from previous projects- these is the place where I/O exceptions
@@ -35,7 +35,7 @@ parameters, the brackets, the "return" etc.
 
 
 
-==  Handling s-java code errors ==
+###  Handling s-java code errors ###
 
 There are two types of errors: the first type is an I/O errors ,which indicates problem of getting to the file(find it,
 open it, read from it etc.) for that type the output will be "2". The second type is an illegal s-java code inside the
@@ -48,7 +48,7 @@ matching informative message that being printed- the program should return, and 
 
 
 
-== Adding new types of variables (e.g., float)? ==
+### Adding new types of variables (e.g., float)? ###
 
 
 We need to do some simple adjustments:
@@ -57,7 +57,7 @@ We need to do some simple adjustments:
 2. Create a matching regex pattern to the FLOAT_TYPE type of variable, and add its "case" to the variable factory.
 
 
-==  Required changes to support classes?  ==
+###  Required changes to support classes?  ###
 
 
 There is no need for changes, only some additions.
@@ -69,7 +69,7 @@ not so hard.
 
 
 
-== Required changes to support different method types? ==
+### Required changes to support different method types? ###
 
 
 I think it will require to change the regex pattern fo method signature, and the 'return' regex pattern.
