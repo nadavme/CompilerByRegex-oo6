@@ -13,7 +13,7 @@ separates "Blocks" to global, methods and conditionals: each of them holds the p
 methods, and booleans that indicates its status(isInitialized?, isTrue?) and to checks some part of the code.The second,
 is for verify the code carefully, and throw exceptions if the code is illegal.
 A crucial part of those two over-code procedures is done by the regex mechanism. We used it to bound scopes, we used it
-to validate the legality of the scope. We chose to define a regex class that holds al the expressions, and divides the
+to validate the legality of the scope. We chose to define a regex class that holds all the expressions, and divides the
 expressions to short one, so its more readable and make sense of what match we look for in the code.
 So, after "parsing" the scope, we "create" them by factories(there is one for each type) and checks their correctness.
 therefore, there can be many of errors types, so each sub-package like "method" or "variable" holds its own exception
@@ -25,7 +25,7 @@ the stations, in the correct order, and identify errors.
 ##   Implementation details   ##
 
 As said in the Design part, i have splitted the program to some packages, by their "mission" of handling the code. I chose to
-read the file with a scanner, that i'am are familiar with from previous projects- these is the place where I/O exceptions
+read the file with a scanner, that i'am more familiar with from previous projects- these is the place where I/O exceptions
 can be thrown, and handle the code line by line.
 So the Parser gets the lines of the code, and cut it to scopes- this may be the most important part of the program,
 because it is done carefully and many of the checks on the code are done their. Each of the relevant scopes gets its
@@ -41,17 +41,17 @@ There are two types of errors: the first type is an I/O errors ,which indicates 
 open it, read from it etc.) for that type the output will be "2". The second type is an illegal s-java code inside the
 file, for all the reasons are explained in the PDF and the output in that case will be "1"/
 
-Both of the exceptions types are thrown independently by the different classes (in packages) of the program, by they all\
+Both of the exceptions types are thrown independently by the different classes (in packages) of the program, and all
 are being caught in the "manager"  that runs the program. the reason is that, whatever the exception type is, and the
 matching informative message that being printed- the program should return, and stop checking the file. So it easy to
-"catch" all sort of exception, in one place, and handle it the only way we chose.
+"catch" all sort of exception, in one place, and handle it the way we choose.
 
 
 
 ### Adding new types of variables (e.g., float)? ###
 
 
-We need to do some simple adjustments:
+We will need to do some simple adjustments:
 
 1. Add the "float" type as field in Variable.
 2. Create a matching regex pattern to the FLOAT_TYPE type of variable, and add its "case" to the variable factory.
